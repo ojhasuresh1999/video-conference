@@ -1,12 +1,23 @@
+"use client";
+
 import MeetingTypeList from "@/components/MeetingTypeList";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Home = () => {
+  const [time, setTime] = useState("");
   const now = new Date();
-  const time = now.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      const formattedTime = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      setTime(formattedTime);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   const date = new Intl.DateTimeFormat("en-US", {
     dateStyle: "full",
   }).format(now);
@@ -19,8 +30,10 @@ const Home = () => {
             Upcoming Meeting at: 12:30PM
           </h2>
           <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-extrabold lg:text-7xl">{time}</h1>
-            <p className="text-lg font-medium text-sky-1 lg:text-2xl">{date}</p>
+            <h1 className="text-4xl font-extrabold lg:text-7xl px-1">{time}</h1>
+            <p className="text-lg font-medium text-sky-1 lg:text-2xl px-1 py-1">
+              {date}
+            </p>
           </div>
         </div>
       </div>
