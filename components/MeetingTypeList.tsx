@@ -27,7 +27,7 @@ const MeetingTypeList = () => {
     try {
       if (!values.dateTime) {
         toast({
-          title: "Error creating meeting",
+          title: "Please select a date and time to start the meeting",
         });
         return;
       }
